@@ -110,7 +110,7 @@ module BankgiroInbetalningar
       payment = result.new_payment
       payment.cents = cents
       payment.currency = result.deposit.currency
-      payment.references << reference if reference_type == 2
+      payment.references << reference if reference.to_s.strip != ""
       payment.sender_bgno = sender_bgno
       payment.number = number
     end
@@ -122,7 +122,7 @@ module BankgiroInbetalningar
     field :reference_type, 56, 'N:-'
 
     def update(result)
-      result.payment.references << reference if [2,5].include?(reference_type)
+      result.payment.references << reference if reference.to_s.strip != ""
     end
   end
 
